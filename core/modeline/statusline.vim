@@ -1,4 +1,4 @@
-" stausline
+" stausline 
 function! s:vimacsline_is_lean() abort
   return &filetype =~? '\v^defx|mundo(diff)?$'
 endfunction
@@ -83,13 +83,13 @@ function! VimacsFilenameActive() abort
     return has('nvim') ? b:term_title . ' (' . b:terminal_job_pid . ')' : ''
   endif
   if &filetype ==? 'tagbar'
-    return get(g:lightline, 'fname', '')
-  endif
-  if &filetype ==? 'vista_kind'
-    return get(g:lightline, 'VISTA', '')
+    return ''
   endif
   if &filetype ==? 'vista'
-    return get(g:lightline, 'VISTA', '')
+    return ''
+  endif
+  if &filetype ==? 'defx'
+      return ''
   endif
   if empty(expand('%:t'))
     return '[No Name]'
@@ -255,67 +255,191 @@ function! HeartErrorSymbol()
   return " "
 endfunction
 
-set laststatus=2
-set statusline=
-set statusline+=%#Seperate#
-set statusline+=\
-set statusline+=%2*
-set statusline+=%{VimacslineMode()}
-set statusline+=\ 
-set statusline+=%3*
-set statusline+=%{VimacsFilenameActive()}
-set statusline+=\ 
-set statusline+=%4*
-set statusline+=\ 
-set statusline+=%{Filesize()}
-set statusline+=\ 
-set statusline+=%5*
-set statusline+=%{HeartErrorSymbol()}
-set statusline+=%6*
-set statusline+=%{VimacsLineCocError()}
-set statusline+=\ 
-set statusline+=%7*
-set statusline+=%{VimacsLineCocWarn()}
-set statusline+=\ 
-set statusline+=%{VimacslineCocFixes()}
-set statusline+=\ 
-set statusline+=%8*
-set statusline+=%{VimacsLineGit()}
-set statusline+=\ 
-set statusline+=%9*
-set statusline+=%{CocStatusBar()}
-set statusline+=%=
-set statusline+=%#StatusEncod#%{FileEncoding()}
-set statusline+=\ 
-set statusline+=%#StatusFileFormat#%{VimacsLineFileformat()}
-set statusline+=\ 
-set statusline+=%#StatusLineinfo#%{VimacsLineinfo()}
-set statusline+=%#EndSeperate#
-set statusline+=\
 
+hi HomeMode ctermbg=214 ctermfg=black guibg=#fabd2f guifg=black
 hi Seperate ctermbg=237 ctermfg=265 guibg=#3c3836 guifg=#bd93f9
-hi User2 ctermbg=237 ctermfg=172 guibg=#3c3836 guifg=#d78700
-hi User3 ctermbg=237 ctermfg=188 guibg=#3c3836 guifg=#d7d7d7
-hi User4 ctermbg=237 ctermfg=142 guibg=#3c3836 guifg=#b8bb26
-hi User5 ctermbg=237 ctermfg=130 guibg=#3c3836 guifg=#af5f00
-hi User6 ctermbg=237 ctermfg=124 guibg=#3c3836 guifg=#cc241d
-hi User7 ctermbg=237 ctermfg=166 guibg=#3c3836 guifg=#d75f00
-hi User8 ctermbg=237 ctermfg=167 guibg=#3c3836 guifg=#d75f5f
-hi User9 ctermbg=237 ctermfg=96 guibg=#3c3836 guifg=#875f87
-hi StatusEncod ctermbg=237 ctermfg=225 guibg=#3c3836 guifg=#6272a4
-hi StatusFileFormat ctermbg=237 ctermfg=225 guibg=#3c3836 guifg=#6272a4
-hi StatusLineinfo ctermbg=237 ctermfg=225 guibg=#3c3836 guifg=#6272a4
-hi EndSeperate ctermbg=237 ctermfg=265 guibg=#3c3836 guifg=#bd93f9
 
-augroup Stautsline
-  autocmd!
-  autocmd VimEnter,WinEnter,BufEnter * call VimacsLineGit()
-  autocmd User CocStatusChange  * call HeartErrorSymbol()
-  autocmd  User CocDiagnosticChange
-    \   call VimacsLineCocWarn()
-    \|  call VimacsLineCocError()
-    \|  call HeartErrorSymbol()
-    \|  call CocActionAsync('quickfixes', function('CocUpdateQuickFixes'))
-augroup END
+hi FileName ctermbg=black ctermfg=188 guibg=black guifg=#d7d7d7
+hi Seperate1 ctermbg=black ctermfg=214 guibg=black guifg=#fabd2f
 
+hi Seperate2 ctermbg=black ctermfg=261 guibg=black guifg=#5d4d7a
+hi Filesize ctermbg=261 ctermfg=188 guibg=#5d4d7a guifg=#d7d7d7
+hi Seperate3 ctermbg=black ctermfg=261 guibg=black guifg=#5d4d7a
 
+hi HeartSymbol ctermbg=black ctermfg=130 guibg=black guifg=#af5f00
+hi CocError ctermbg=black ctermfg=124 guibg=black guifg=#cc241d
+hi CocWarn ctermbg=black ctermfg=32 guibg=black guifg=#0087d7
+
+hi GitInfo ctermbg=261 ctermfg=188 guibg=#5d4d7a guifg=#d7d7d7
+hi Seperate5 ctermbg=237 ctermfg=261 guibg=#3c3836 guifg=#5d4d7a
+
+hi CocBar ctermbg=237 ctermfg=225 guibg=#3c3836 guifg=#6272a4
+
+hi Seperate4 ctermbg=237 ctermfg=black guibg=#3c3836 guifg=black
+hi StatusEncod ctermbg=black ctermfg=225 guibg=black guifg=#6272a4
+hi StatusFileFormat ctermbg=black ctermfg=225 guibg=black guifg=#6272a4
+hi StatusLineinfo ctermbg=237 ctermfg=black guibg=black guifg=#6272a4
+hi EndSeperate ctermbg=214 ctermfg=55 guibg=#fabd2f guifg=#5f00af
+
+hi VimMode ctermbg=black ctermfg=148 guibg=black guifg=#afd700
+
+hi emptySeperate1 ctermbg=237 ctermfg=black guibg=#3c3836 guifg=black
+
+function! s:ActiveStatusLine()
+    if &filetype ==? 'defx' ||&filetype==?'vista'
+        let s:statusline=""
+        let s:statusline.="%#HomeMode#%{VimacslineMode()}"
+        let s:statusline.="%#Seperate1#"
+        let s:statusline.="\"
+        let s:statusline.="\ "
+        let s:statusline.="%#FileName#"
+        let s:statusline.="%{VimacsFilenameActive()}"
+        let s:statusline.="\ "
+        let s:statusline.="%="
+        let s:statusline.="%#StatusEncod#%{FileEncoding()}"
+        let s:statusline.="\ "
+        let s:statusline.="%#StatusFileFormat#%{VimacsLineFileformat()}"
+        let s:statusline.="\ "
+        let s:statusline.="%#StatusLineinfo#%{VimacsLineinfo()}"
+        let s:statusline.="%#EndSeperate#"
+        let s:statusline.="\"
+        return s:statusline
+    endif
+    let s:statusline=""
+    let s:statusline.="%#HomeMode#%{VimacslineMode()}"
+    let s:statusline.="%#Seperate1#"
+    let s:statusline.="\"
+    let s:statusline.="\ "
+    let s:statusline.="%#FileName#"
+    let s:statusline.="%{VimacsFilenameActive()}"
+    let s:statusline.="\ "
+    if !empty(Filesize())
+        let s:statusline.="%#Seperate2#"
+        let s:statusline.="\"
+        let s:statusline.="\ "
+        let s:statusline.="%#FileSize#"
+        let s:statusline.="\ "
+        let s:statusline.="%{Filesize()}"
+        let s:statusline.="\ "
+        let s:statusline.="%#Seperate3#"
+        let s:statusline.="\"
+    endif
+
+    if !empty(VimacsLineCocError())|| !empty(VimacsLineCocWarn())||!empty(VimacslineCocFixes())
+        let s:statusline.="\ "
+        let s:statusline.="%#HeartSymbol#"
+        let s:statusline.="\ "
+        let s:statusline.="%{HeartErrorSymbol()}"
+        let s:statusline.="%#CocError#"
+        let s:statusline.="%{VimacsLineCocError()}"
+        let s:statusline.="\ "
+        let s:statusline.="%#CocWarn#"
+        let s:statusline.="%{VimacsLineCocWarn()}"
+        let s:statusline.="\ "
+        let s:statusline.="%{VimacslineCocFixes()}"
+        let s:statusline.="\ "
+    else
+        let s:statusline.="\ "
+        let s:statusline.="%#VimMode#"
+        let s:statusline.="\["
+        let s:statusline.="%{VimMode()}"
+        let s:statusline.="\]"
+    endif
+    if !empty(get(g:,'coc_git_status',''))
+        let s:statusline.="%#Seperate2#"
+        let s:statusline.="\"
+        let s:statusline.="\ "
+        let s:statusline.="%#GitInfo#"
+        let s:statusline.="\ "
+        let s:statusline.="%{VimacsLineGit()}"
+        let s:statusline.="\ "
+        let s:statusline.="%#Seperate5#"
+        let s:statusline.="\"
+    endif
+    if !empty(expand('%:t')) && empty(get(g:,'coc_git_status','')) && &filetype != 'defx'
+        let s:statusline.="%#emptySeperate1#"
+        let s:statusline.="\"
+    endif
+    if empty(Filesize())
+        let s:statusline.="%#emptySeperate1#"
+        let s:statusline.="\"
+    endif
+    let s:statusline.="%#CocBar#"
+    let s:statusline.="\ "
+    let s:statusline.="%{CocStatusBar()}"
+    let s:statusline.="%="
+    let s:statusline.="%#Seperate4#"
+    let s:statusline.="\"
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusEncod#%{FileEncoding()}"
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusFileFormat#%{VimacsLineFileformat()}"
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusLineinfo#%{VimacsLineinfo()}"
+    let s:statusline.="%#EndSeperate#"
+    let s:statusline.="\"
+    return s:statusline
+endfunction
+
+function! VimMode()
+  let l:mode=mode()
+  if l:mode==#"n"
+    return "N"
+  elseif l:mode==?"v"
+    return "V"
+  elseif l:mode==#"i"
+    return "I"
+  elseif l:mode==#"R"
+    return "R"
+  elseif l:mode==?"s"
+    return "S"
+  elseif l:mode==#"t"
+    return "T"
+  elseif l:mode==#"c"
+    return "C"
+  elseif l:mode==#"!"
+    return "SE"
+  endif
+endfunction
+
+function! s:InActiveStatusLine()
+    let s:statusline=""
+    let s:statusline.="%#HomeMode#%{VimacslineMode()}"
+    let s:statusline.="%#Seperate1#"
+    let s:statusline.="\"
+    let s:statusline.="\ "
+    let s:statusline.="%#FileName#"
+    let s:statusline.="%{VimacsFilenameActive()}"
+    let s:statusline.="\ "
+    let s:statusline.="%="
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusEncod#%{FileEncoding()}"
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusFileFormat#%{VimacsLineFileformat()}"
+    let s:statusline.="\ "
+    let s:statusline.="%#StatusLineinfo#%{VimacsLineinfo()}"
+    let s:statusline.="%#EndSeperate#"
+    let s:statusline.="\"
+    return s:statusline
+endfunction
+
+function! SetStatusline()
+    let &l:statusline=s:ActiveStatusLine()
+endfunction
+
+function! SetInActiveStatusLine()
+    let &l:statusline=s:InActiveStatusLine()
+endfunction
+
+augroup statusline
+	autocmd!
+	autocmd FileType,WinEnter,BufWinEnter,BufReadPost  * call SetStatusline()
+    autocmd WinLeave * call SetInActiveStatusLine()
+    autocmd BufNewFile,ShellCmdPost,BufWritePost * call SetStatusline()
+    autocmd FileChangedShellPost,ColorScheme * call SetStatusline()
+    autocmd FileReadPre,ShellCmdPost,FileWritePost * call SetStatusline()
+    autocmd User CocStatusChange,CocGitStatusChange call SetStatusline()
+    autocmd  User CocDiagnosticChange
+        \   call SetStatusline()
+        \|  call CocActionAsync('quickfixes', function('CocUpdateQuickFixes'))
+augroup END "}}}
