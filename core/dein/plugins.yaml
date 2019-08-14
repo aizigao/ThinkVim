@@ -57,11 +57,11 @@
   on_ft: [vim,json,go,html,js,jsx,py,css,less,tmpl,toml,xml,sql,Dockerfile]
 
 
-- repo: yuttie/comfortable-motion.vim
-  on_func: comfortable_motion#flick
-  hook_add: |
-        let g:comfortable_motion_no_default_key_mappings = 1
-        let g:comfortable_motion_impulse_multiplier = 1
+# - repo: yuttie/comfortable-motion.vim
+#   on_func: comfortable_motion#flick
+#   hook_add: |
+#         let g:comfortable_motion_no_default_key_mappings = 1
+#         let g:comfortable_motion_impulse_multiplier = 1
 
 - repo: rizzatti/dash.vim
   on_map: { n: <Plug> }
@@ -163,6 +163,8 @@
   on_ft: python
   hook_add: let g:python_highlight_all = 1
 
+- { repo: leafgarland/typescript-vim, on_ft: [typescript.tsx,typescript] }
+- { repo: peitalin/vim-jsx-typescript, on_ft: [typescript.tsx, typescript] }
 - { repo: neoclide/vim-jsx-improve, on_ft: [javascript,jsx,javascript.jsx]}
 
 - { repo: cespare/vim-toml, on_ft: toml }
@@ -200,7 +202,7 @@
   hook_source: source  $VIM_PATH/core/plugins/neoformat.vim
 
 - repo: Yggdroot/indentLine
-  on_ft: [python,html,css,vim,javascript,jsx,javascript.jsx,vue]
+  on_ft: [python,html,css,vim,javascript,jsx,javascript.jsx,vue, typescript,typescript.tsx, rust]
   hook_source: source $VIM_PATH/core/plugins/indentline.vim
 
 - repo: liuchengxu/vista.vim

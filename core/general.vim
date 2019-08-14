@@ -5,6 +5,7 @@ set autowrite
 set confirm
 set splitbelow
 set bsdir=buffer
+set mouse=a
 if has('vim_starting')
 	set encoding=UTF-8
 	scriptencoding UTF-8
@@ -68,6 +69,8 @@ set listchars=tab:»·,nbsp:+,trail:·,extends:→,precedes:←
 
 set ignorecase      " Search ignoring case
 set smartcase       " Keep case when searching with *
+set scrolloff=5 " Keep 3 lines below and above the cursor
+
 set infercase       " Adjust case in insert completion mode
 set incsearch       " Incremental search
 set hlsearch        " Highlight search results
@@ -135,3 +138,5 @@ if has('folding')
 	set foldmethod=syntax
 	set foldlevelstart=99
 endif
+
+

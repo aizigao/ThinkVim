@@ -26,6 +26,9 @@ augroup MyAutoCmd
     " Magit
      autocmd User VimagitEnterCommit startinsert
 
+    " set filetypes as typescript.tsx
+    autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
 	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
 	autocmd FileType css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
 augroup END

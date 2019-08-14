@@ -92,7 +92,7 @@ function! s:defx_mappings() abort
 
 	nnoremap <silent><buffer><expr> <CR>  defx#do_action('drop')
 	nnoremap <silent><buffer><expr> l     <SID>defx_toggle_tree()
-	nnoremap <silent><buffer><expr> h     defx#async_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> h     <SID>defx_toggle_tree()
 	nnoremap <silent><buffer><expr> st    defx#do_action('multi', [['drop', 'tabnew'], 'quit'])
 	nnoremap <silent><buffer><expr> sg    defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
 	nnoremap <silent><buffer><expr> sv    defx#do_action('multi', [['drop', 'split'], 'quit'])
@@ -103,6 +103,8 @@ function! s:defx_mappings() abort
 	nnoremap <silent><buffer><expr> r     defx#do_action('rename')
 	nnoremap <silent><buffer><expr> x     defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')
+	nnoremap <silent><buffer><expr> O     defx#do_action('xdg-open')
+    nnoremap <silent><buffer><expr> H     defx#do_action('cd', ['..'])
 	nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
 	nnoremap <silent><buffer><expr> ~     defx#async_action('cd')
 	nnoremap <silent><buffer><expr> q     defx#do_action('quit')
