@@ -57,6 +57,9 @@ noremap <leader>tm :tabmove
 "yank to end
 nnoremap Y y$
 
+" yank to clipboard
+noremap <Leader>y "+y
+
 " settings for resize splitted window
 nmap <C-w>[ :vertical resize -3<CR>
 nmap <C-w>] :vertical resize +3<CR>

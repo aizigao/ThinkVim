@@ -32,9 +32,10 @@ if has('mac')
 		\ }
 endif
 
-if has('clipboard')
-	set clipboard& clipboard+=unnamedplus
-endif
+" if has('clipboard')
+" 	set clipboard& clipboard+=unnamedplus
+" endif
+
 set history=2000
 set number
 set timeout ttimeout
