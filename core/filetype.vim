@@ -15,20 +15,11 @@ augroup MyAutoCmd
     autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
 
     autocmd BufWritePre *.js,*.jsx,*.less,*.css,*.html Neoformat
+    if has('mac')
+        au BufReadCmd *.png,*.jpg,*.jpeg sil exe "!open " . shellescape(expand("<afile>")) . "&>/dev/null" |
+        \ let tobedeleted = bufnr('%') | b# | exe "bd! " . tobedeleted
+    else
+        au BufReadCmd *.png,*.jpg,*.jpeg sil exe "!xdg-open " . shellescape(expand("<afile>")) . "&>/dev/null" |
+        \ let tobedeleted = bufnr('%') | b# | exe "bd! " . tobedeleted
+    endif
 
-     autocmd FileType json syntax match Comment +\/\/.\+$+
-
-    " Go (Google)
-    autocmd FileType go let b:coc_pairs_disabled = ['<']
-
-    " HTML (.gohtml and .tpl for server side)
-    autocmd BufNewFile,BufRead *.html,*.htm,*.gohtml,*.tpl  setf html
-    " Magit
-     autocmd User VimagitEnterCommit startinsert
-
-    " set filetypes as typescript.tsx
-    autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-
-	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
-augroup END
